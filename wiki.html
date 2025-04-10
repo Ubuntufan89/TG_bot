@@ -1,0 +1,751 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+<head>
+<title>Service desk</title>
+<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+<style>
+body { font:80% Verdana,Tahoma,Arial,sans-serif; }
+h1, h2, h3, h4 {  font-family: "Trebuchet MS",Georgia,"Times New Roman",serif; }
+ul.toc { padding: 4px; margin-left: 0; }
+ul.toc li { list-style-type:none; }
+ul.toc li.heading2 { margin-left: 1em; }
+ul.toc li.heading3 { margin-left: 2em; }
+a.wiki-anchor { display: none; margin-left: 6px; text-decoration: none; }
+a.wiki-anchor:hover { color: #aaa !important; text-decoration: none; }
+h1:hover a.wiki-anchor, h2:hover a.wiki-anchor, h3:hover a.wiki-anchor { display: inline; color: #ddd; }
+</style>
+</head>
+<body>
+
+<strong>Оглавление</strong>
+<ul class="pages-hierarchy">
+<li><a title="Обновлено 7 месяца назад" href="#Wiki">Wiki</a>
+<ul class="pages-hierarchy">
+<li><a title="Обновлено 8 дня назад" href="#Десктоп">Десктоп</a></li>
+<li><a title="Обновлено 8 дня назад" href="#КС_2024">КС 2024</a>
+<ul class="pages-hierarchy">
+<li><a title="Обновлено 7 месяца назад" href="#Step_By_Step_Установка_р7-офис_+_р7-Команда">Step By Step Установка р7-офис + р7-Команда</a></li>
+<li><a title="Обновлено 5 месяца назад" href="#Вариант_установки_КС2024_в_Doker_OS_Ubuntu">Вариант установки КС2024 в Doker OS Ubuntu</a></li>
+<li><a title="Обновлено 8 дня назад" href="#Изменение_размера_загружаемых_файлов_на_портал">Изменение размера загружаемых файлов на портал</a></li>
+<li><a title="Обновлено 3 месяца назад" href="#Инструкция_для_подготовки_информации_для_службы_технической_поддержки">Инструкция для подготовки информации для службы технической поддержки</a></li>
+<li><a title="Обновлено 6 месяца назад" href="#Инструкция_по_настройке_интеграции_Elma365_и_Сервера_Документов_Р7">Инструкция по настройке интеграции Elma365 и Сервера Документов Р7</a></li>
+<li><a title="Обновлено 8 дня назад" href="#Куда_попадают_логи_установки_Корпоративного_сервера_2024">Куда попадают логи установки Корпоративного сервера 2024</a></li>
+<li><a title="Обновлено 8 дня назад" href="#Настройка_периода_синхронизации_с_AD">Настройка периода синхронизации с AD</a></li>
+<li><a title="Обновлено 8 дня назад" href="#Настройка_почтового_сервера_в_корпоративном_сервере_2024">Настройка почтового сервера в корпоративном сервере 2024</a></li>
+<li><a title="Обновлено 8 месяца назад" href="#Настройка_почты_для_ИБ">Настройка почты для ИБ</a></li>
+<li><a title="Обновлено 8 дня назад" href="#Не_корректно_работает_портал_Ошибка_-_токен_просрочен_Портал_выкидывает_на_страницу_авторизации">Не корректно работает портал Ошибка - токен просрочен Портал выкидывает на страницу авторизации</a></li>
+<li><a title="Обновлено 8 дня назад" href="#Не_приходят\не_уходят_письма_Ошибка_400_и_54001">Не приходят\не уходят письма Ошибка 400 и 54001</a></li>
+<li><a title="Обновлено 8 дня назад" href="#Несколько_почтовых_доменов">Несколько почтовых доменов</a></li>
+<li><a title="Обновлено 6 месяца назад" href="#Отказоустойчивый_кластер_Р7-Офис_2024">Отказоустойчивый кластер Р7-Офис 2024</a></li>
+<li><a title="Обновлено 8 дня назад" href="#Передача_прав_от_заблокированного_(уволенного)_пользователя">Передача прав от заблокированного (уволенного) пользователя</a></li>
+<li><a title="Обновлено 3 месяца назад" href="#Полное_удаление_r7-office-documentserver-ee">Полное удаление r7-office-documentserver-ee</a></li>
+<li><a title="Обновлено 8 дня назад" href="#Почта_отправляется_с_ошибкой">Почта отправляется с ошибкой</a></li>
+<li><a title="Обновлено 8 дня назад" href="#Привязываются_ли_лицензии_для_Портала_к_определенному_серверу">Привязываются ли лицензии для Портала к определенному серверу</a></li>
+<li><a title="Обновлено 6 месяца назад" href="#Проброс_порта_через_хост">Проброс порта через хост</a></li>
+<li><a title="Обновлено 3 месяца назад" href="#Проверка_параметров_почты_при_проблемах_отправки_и_получения">Проверка параметров почты при проблемах отправки и получения</a></li>
+<li><a title="Обновлено 8 дня назад" href="#Работа_с_pdf_файлами_в_Р7_Офис">Работа с pdf файлами в Р7 Офис</a></li>
+<li><a title="Обновлено 8 дня назад" href="#Рассылка">Рассылка</a></li>
+<li><a title="Обновлено 6 месяца назад" href="#Расчет_сайзинга_Р7_по_рекомендациям_вендора">Расчет сайзинга Р7 по рекомендациям вендора</a></li>
+<li><a title="Обновлено 7 месяца назад" href="#Сетевые_настройки_почтового_сервера">Сетевые настройки почтового сервера</a></li>
+<li><a title="Обновлено 8 дня назад" href="#Смена_URL_Сервера_Документов">Смена URL Сервера Документов</a></li>
+<li><a title="Обновлено 4 месяца назад" href="#Ссылки_на_документацию_по_распределенной_архитектуре_Р7_Офис_2024">Ссылки на документацию по распределенной архитектуре Р7 Офис 2024</a></li>
+<li><a title="Обновлено 8 дня назад" href="#Статистика_портала">Статистика портала</a></li>
+<li><a title="Обновлено 8 дня назад" href="#Установка_debian-archive-keyring_на_Astra_Linux_175">Установка debian-archive-keyring на Astra Linux 175</a></li>
+<li><a title="Обновлено 6 месяца назад" href="#Установка_Р7_Офис_2024_в_Docker">Установка Р7 Офис 2024 в Docker</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+
+<hr />
+<a name="Step_By_Step_Установка_р7-офис_+_р7-Команда" />
+<a name="Step_By_Step_Установка_р7-офис_+_р7-Команда_Step-By-Step-Установка-р7-офис-р7-Команда"></a>
+<h1 >Step By Step Установка р7-офис + р7-Команда<a href="#Step_By_Step_Установка_р7-офис_+_р7-Команда_Step-By-Step-Установка-р7-офис-р7-Команда" class="wiki-anchor">&para;</a></h1>
+<a name="Step_By_Step_Установка_р7-офис_+_р7-Команда_Установка-р7-офис-КС-2024"></a>
+<h2 ><strong>Установка р7-офис КС 2024</strong><a href="#Step_By_Step_Установка_р7-офис_+_р7-Команда_Установка-р7-офис-КС-2024" class="wiki-anchor">&para;</a></h2>
+<p>cd /mnt<br>
+unzip RedOS_<em>.zip<br>
+cd RedOS_</em>/</p>
+<p><strong>Скопировать ssl сертификаты в директорию</strong></p>
+<p>Если установка online<br>
+chmod +x online_installer.sh</p>
+<p>если установка offline<br>
+chmod +x offline_installer.sh</p>
+<p>sudo bash ./online_installer.sh</p>
+<p>Чистая установка "Да"<br>
+Установить Posgtres "Да"<br>
+Установить Сервер документов "Да"</p>
+<p>Поддержка HTTPS "Да"<br>
+Имя домена<br>
+указать префиксы</p>
+<p>Перезагрузка сервера</p>
+<p>Проверка работы портала.</p>
+<a name="Step_By_Step_Установка_р7-офис_+_р7-Команда_Р7-Команда"></a>
+<h1 ><strong>Р7-Команда</strong><a href="#Step_By_Step_Установка_р7-офис_+_р7-Команда_Р7-Команда" class="wiki-anchor">&para;</a></h1>
+<p>Для создания .pfx сертификата выполните команду.</p>
+<p>openssl pkcs12 -export -out certificate.pfx -inkey private-key.pem -in certificate.pem -certfile certificate-chain.pem</p>
+<p>cp certificate.pfx /opt/r7-office/Api/certificate.pfx<br>
+chmod 755 /opt/r7-office/Api/certificate.pfx</p>
+<p><strong>Внесите изменения в файле конфигурации</strong> /opt/r7-office/Api/appsettings.json<br>
+},<br>
+"OAuth20": {<br>
+"SigningCertificateFile": "Имя созданного сертификата.pfx"<br>
+},<br>
+"DbType": "postgre"<br>
+}</p>
+<p><strong>Перейдите в модуль «Общие настройки», выберите панель «Интеграция», включите интеграцию, заполните данные и нажмите сохранить.</strong></p>
+<p>sudo -u postgres psql -c "select * from "AuthClients"" cddisk<br>
+<strong>Сохраните данные!!!</strong> ClientId и ClientSecret</p>
+<p>sudo firewall-cmd --permanent --add-port=5672/tcp<br>
+sudo firewall-cmd --reload</p>
+<p><strong>Выгрузка пользователей через брокер очереди для настройки прав.</strong><br>
+rabbitmqctl add_user commands commands<br>
+rabbitmqctl set_user_tags commands administrator<br>
+rabbitmqctl set_permissions -p / commands ".<em>" ".</em>" ".*"</p>
+<p><strong>Установка на Debian</strong><br>
+cp /var/www/r7-office/Services/TeamLabSvc/ ASC.Web.Talk.dll /var/www/r7-office/WebStudio/bin/</p>
+<p><strong>В файле web.appsettings.config, который расположен в директории:<br>
+/var/www/r7-office/WebStudio/</strong></p>
+<p><strong>установить значения параметров:</strong><br>
+<br>
+<br>
+<br>
+где адрес team.r7-office.ru заменить на URL где установлен сервер управления Р7Команда</p>
+<p><strong>Сохраните значение ключа core.machinekey в файле</strong><br>
+web.appsettings.config </p>
+<p>systemctl restart monoserve</p>
+<p><strong>Посмотрите и cохраните параметры подключения к БД MySQL, которые потребуются в ходе установки<br>
+модуля Команда.<br>
+Название БД: r7-office<br>
+Пользователь для подключения к БД: root<br>
+Пароль к базе данных можно найти в файле web.connections.config, который расположен в директории:<br>
+/var/www/r7-office/WebStudio/</strong></p>
+<p>Создать отдельного пользователя<br>
+mysql -h 127.0.0.1 -uroot -p<br>
+пароль тот который в конфигурационном файле web.connections.config</p>
+<p>CREATE USER 'dbuser'@'%' IDENTIFIED BY 'P@$$w0rd';<br>
+GRANT ALL PRIVILEGES ON <em>.</em> TO 'dbuser'@'%' WITH GRANT OPTION;<br>
+FLUSH PRIVILEGES;<br>
+\q</p>
+<p><strong>В файле my.cnf сделать разрешение подключения с других хостов</strong><br>
+bind-address = 0.0.0.0<br>
+Найти файл можно с помощью команды sudo find / -name "<em>my</em>cnf"</p>
+<p>sudo systemctl restart mysql</p>
+<p>sudo iptables -A INPUT -p tcp --destination-port 3306 -j ACCEPT</p>
+<p>**Установка Медиа-сервера (Mind API) модуля Команда<br>
+**<br>
+<em><strong>копируем имеющиеся сертификаты и ключ SSL на медиа сервер в каталог /etc/ssl</strong></em><br>
+<em>проверим /etc/hostname</em></p>
+<p><strong>Привести к виду</strong><br>
+127.0.0.1 localhost<br>
+внешний_адрес домен</p>
+<p>reboot</p>
+<p><strong>Скопировать установочный архив на сервер в каталог /tmp и переходим в него</strong><br>
+cd /tmp<br>
+<strong>Проверяем чек сумму проверяем с чек суммой на сайте</strong><br>
+md5sum install_r7_team.tar.gz<br>
+<strong>Распаковать архив командой</strong><br>
+mkdir -p install &amp;&amp; tar -xvzf install_r7_team.tar.gz -C install<br>
+<strong>Перейти в папку install</strong><br>
+cd install<br>
+<strong>Выполнить команду перед запуском скрипта установки:</strong><br>
+apt remove libx11-6<br>
+<strong>Запустить скрипт install.sh</strong><br>
+./install.sh<br>
+<strong>Отобразится меню установки Медиа-сервера</strong><br>
+<strong>Следуя руководству мастера установки произвести установку сервера выбрать пункт «R7-Team media<br>
+server»</strong></p>
+<p><strong>В процессе установки меда сервера проходит процесс обновления ОС, возможны изменения<br>
+конфигурационных файлов при обновлении пакетов. Здесь выбираем пункт – оставлять локальную версию.</strong></p>
+<p><strong>В каталоге /root/.team/config находятся Application ID и token, они нам понадобятся.</strong></p>
+<a name="Step_By_Step_Установка_р7-офис_+_р7-Команда_УСТАНОВКА-СЕРВЕРА-УПРАВЛЕНИЯ-МОДУЛЯ-КОМАНДА"></a>
+<h1 ><strong>УСТАНОВКА СЕРВЕРА УПРАВЛЕНИЯ МОДУЛЯ КОМАНДА</strong><a href="#Step_By_Step_Установка_р7-офис_+_р7-Команда_УСТАНОВКА-СЕРВЕРА-УПРАВЛЕНИЯ-МОДУЛЯ-КОМАНДА" class="wiki-anchor">&para;</a></h1>
+<p><strong>1. Настроим имя сервера</strong><br>
+/etc/hostname должен содержать полное имя домена, в нашем случае puzr7team.r7-office.ru<br>
+приводим в соответствие файл /etc/hosts<br>
+как и в случае с установкой медиа сервера, после изменения перегружаем ОС.<br>
+<strong>2. Загружаем дистрибутив в каталог /tmp</strong><br>
+cd /tmp<br>
+<strong>3. Копируем сертификаты SSL в каталог /etc/ssl</strong><br>
+<strong>4. Переходим в каталог /tmp</strong><br>
+<strong>5. Проверяем чексумму сверяем с чек суммой на сайте</strong><br>
+md5sum install_r7_team.tar.gz<br>
+<strong>6. Распаковать архив командой</strong><br>
+mkdir -p install &amp;&amp; tar -xvzf install_r7_team.tar.gz -C install<br>
+<strong>7. Перейти в папку install</strong><br>
+cd install<br>
+<strong>Выполнить команду перед запуском скрипта установки:</strong><br>
+apt remove libx11-6<br>
+<strong>8. Запустить скрипт install.sh и выбрать пункт «R7-Team command server»</strong><br>
+./install.sh<br>
+<strong>9. возможно, ОС запросит установку пакета whiptail<br>
+в этом случае проводим его установку</strong><br>
+apt-get install -y whiptail<br>
+<strong>10. запускаем установку</strong><br>
+./install.sh</p>
+<p><em>выбрать пункт «R7-Team command server»</em></p>
+<p><strong>11. Жмём Yes</strong><br>
+<strong>12. Зависимости "Yes"</strong><br>
+<strong>13. При установке пользователю будет предложено установить отдельные компоненты R7-Team, по требованиям установки операционная система должна быть без предустановленных компонентов, по этой причине оставляем всё по умолчанию – ставим все компоненты и жмём </strong><br>
+<strong>14. Указываем внешнее имя сервера управления домен_команды.имя_домена.ru без указания протокола</strong><br>
+<strong>15. Оставляем по умолчанию порт http 80<br>
+16. Указываем, что будем конфигурировать https - <br>
+17. Оставляем по умолчанию порт http 443<br>
+18. Для настройки https указываем пути где будет располагаться SSL сертификат и ключ.<br>
+Сертификат и ключ мы положили в каталоги в начале установки в каталог /etc/ssl<br>
+19. Указываем наименование администраторской учётной записи<br>
+20. Указываем имя компании<br>
+21. Задаём пароль для суперпользователя<br>
+22. Указываем путь к каталогу для сохранения прикрепленных файлов.<br>
+23. Указываем адрес медиа сервера, порт не указываем – будет использоваться стандартный. Соответственно с указанием протокола <a href="https://%D0%B8%D0%BC%D1%8F_%D0%B4%D0%BE%D0%BC%D0%B5%D0%BD%D0%B0.ru" class="external">https://имя_домена.ru</a><br>
+24. Указываем appID, его берём из файла каталоге /root/.team/config установленного медиа сервера<br>
+25. Следующим шагом указываем application.token, также из файла /root/.team/config установленного медиа сервера</strong><br>
+<strong>ВАЖНО</strong> : <strong>возможно при копировании appID и application.token в файл конфигурации попадёт спец символ переноса корретки. Пожалуйста, проверьте после установки сервера управления в файлах на сервере управления /opt/team/config_server/configs/ss-production.properties раздел<br>
+Mind параметры mind.id и mind.token #<br>
+/opt/team/config_server/configs/attach-production.properties, раздел #Mind параметры application.mind.id и application.mind.token</strong><br>
+<strong>26. Интеграция с Р7-Офис<br>
+27. При необходимости синхронизировать данные пользователей из базы Р7-офиса, выбрать "Yes". При<br>
+установке без Р7-офиса выбрать "No".<br>
+30. Указываем протокол https<br>
+31. Указываем url до R7-Офис сервера, без указания протокола<br>
+32. Ввести машинный ключ в формате BASE64 (Данное окно отображается при синхронизации данных с базой<br>
+Р7-офиса).</strong></p>
+<a name="Step_By_Step_Установка_р7-офис_+_р7-Команда_КЛЮЧ-УКАЗАННЫЙ-В-КОНФИГЕ-НУЖНО-ПЕРЕВЕСТИ-В-РУЧНУЮ-В-ФОРМАТ-BASE64-например-через-сервис-httpswwwutilities-onlineinfobase64"></a>
+<h1 >**КЛЮЧ УКАЗАННЫЙ В КОНФИГЕ НУЖНО ПЕРЕВЕСТИ В РУЧНУЮ В ФОРМАТ BASE64 (например через сервис <a href="https://www.utilities-online.info/base64" class="external">https://www.utilities-online.info/base64</a>).<a href="#Step_By_Step_Установка_р7-офис_+_р7-Команда_КЛЮЧ-УКАЗАННЫЙ-В-КОНФИГЕ-НУЖНО-ПЕРЕВЕСТИ-В-РУЧНУЮ-В-ФОРМАТ-BASE64-например-через-сервис-httpswwwutilities-onlineinfobase64" class="wiki-anchor">&para;</a></h1>
+<p>Ключ который используется по-умолчанию (если не был изменён при установки Р7-Офис Сервер) на портале Р7-Офис «Vskoproizvolny Salt par Chivreski» переводится в следующие символы в base64: VnNrb3Byb2l6dm9sbnkgU2FsdCBwYXIgQ2hpdnJlc2tp**<br>
+<strong>33. При необходимости работы с мультитенантным режимом управления необходимо включить его поддержку.</strong></p>
+<h1>**ВНИМАНИЕ!!!<strong>Отключение мультитенантного режима впоследствии невозможно. Перед выбором данного пункта убедитесь в необходимости работы с несколькими порталами, а также в режиме работы ПО Р7-Офис. По умолчанию работа осуществляется в одно портальном режиме. При необходимости мультитенантным режим может быть включен при переконфигурировании системы.</strong>
+</h1>
+<p><strong>34. Ввести адрес mysql сервера Р7-офиса в формате: "host: port" (Данное окно отображается при<br>
+синхронизации данных с базой Р7-офиса).<br>
+35. Ввести логин пользователя сервера MySQL сохранённый заранее в пункте 4.1.2.2 (Данное окно<br>
+отображается при синхронизации данных с базой Р7-офиса).<br>
+36. Ввести пароль пользователя сервера MySQL сохранённый заранее в пункте 4.1.2.2 (Данное окно<br>
+отображается при синхронизации данных с базой Р7-офиса).<br>
+37. Проверяем соединение до MySQL<br>
+38. После указания всех параметров начнется процесс установки R7-Team.<br>
+39. После завершения установки произойдет старт всех сервисов R7-Team. Время до окончания старта всех<br>
+сервисов будет отображаться в диалоговом окне.<br>
+40. Далее будет запрошена информация об отправке уведомлений на мобильные приложения.<br>
+Если у Вас закрытый контур без выхода в интернет, то необходимо выключить их, т.к. функция работать<br>
+не будет.<br>
+В ином случае, можете оставить включённой.<br>
+41. Если всё было корректно, установка завершится успешно<br>
+Жмём , на консоли будет представлен лог установки.</strong></p>
+<hr />
+<a name="Wiki" />
+<a name="Wiki_Wiki"></a>
+<h1 >Wiki<a href="#Wiki_Wiki" class="wiki-anchor">&para;</a></h1>
+<p>Вопросы и ответы<br>
+(в тестовом режиме)</p>
+<hr />
+<a name="Вариант_установки_КС2024_в_Doker_OS_Ubuntu" />
+<a name="Вариант_установки_КС2024_в_Doker_OS_Ubuntu_Вариант-установки-КС2024-в-Docker-OS-Ubuntu"></a>
+<h1 >Вариант установки КС2024 в Docker OS Ubuntu<a href="#Вариант_установки_КС2024_в_Doker_OS_Ubuntu_Вариант-установки-КС2024-в-Docker-OS-Ubuntu" class="wiki-anchor">&para;</a></h1>
+<p>Выполните повторную установку Корпоративный сервер 2024 при помощи скрипта во вложении.</p>
+<ol>
+<li>Если в директории /mnt/ остались старые файлы установки cddisk и ds, то удалите их.</li>
+<li>Разместите скрипт в директории /mnt/</li>
+<li>В директории /mnt/ рядом со скриптом разместите ssl сертификаты</li>
+<li>Отредактируйте права на скрипт при помощи команды chmod +x cs2024-docker-astra-ubuntu.sh</li>
+<li>Удалите имеющиеся контейнеры запуском команды docker rm -f $(docker ps -qa)</li>
+<li>Запустите скрипт и произведите установку из директории /mnt/ командой ./cs2024-docker-astra-ubuntu.sh</li>
+</ol>
+<hr />
+<a name="Десктоп" />
+<a name="Десктоп_Десктоп"></a>
+<h1 >Десктоп<a href="#Десктоп_Десктоп" class="wiki-anchor">&para;</a></h1>
+<hr />
+<a name="Изменение_размера_загружаемых_файлов_на_портал" />
+<p>Необходимо в файле /etc/nginx/conf.d/cddisk.conf</p>
+<p>Измените значение параметра</p>
+<pre><code>client_max_body_size 1024M;
+</code></pre>
+<p>После изменения, перезапустите сервис nginx</p>
+<pre><code>systemctl restart nginx
+</code></pre>
+<hr />
+<a name="Инструкция_для_подготовки_информации_для_службы_технической_поддержки" />
+<a name="Инструкция_для_подготовки_информации_для_службы_технической_поддержки_Инструкция-для-подготовки-информации-для-службы-технической-поддержки"></a>
+<h1 >Инструкция для подготовки информации для службы технической поддержки<a href="#Инструкция_для_подготовки_информации_для_службы_технической_поддержки_Инструкция-для-подготовки-информации-для-службы-технической-поддержки" class="wiki-anchor">&para;</a></h1>
+<p>Для оперативного решения возникших вопросов по работе Корпоративного сервера Р7-Офис, при обращении в службу технической поддержки рекомендуем предоставить максимально полную информацию о текущей конфигурации и установке сервера. Пожалуйста, соберите и отправьте следующую информацию:</p>
+<ol>
+<li>Версия операционной системы (ОС) и архитектура сервера</li>
+<li>Режим установки</li>
+<li>Версия Корпоративного сервера</li>
+<li>Версии компонентов Р7-Офис</li>
+<li>Логи сервера совместной работы</li>
+<li>Статус системных служб</li>
+<li>Информация о сертификатах</li>
+</ol>
+<p>Автоматический сбор информации с помощью скрипта: <a href="https://download.r7-office.ru/assets/get-info-cs.sh" class="external">https://download.r7-office.ru/assets/get-info-cs.sh</a></p>
+<hr />
+<a name="Инструкция_по_настройке_интеграции_Elma365_и_Сервера_Документов_Р7" />
+<a name="Инструкция_по_настройке_интеграции_Elma365_и_Сервера_Документов_Р7_Инструкция-по-настройке-интеграции-Elma365-и-Сервера-Документов-Р7"></a>
+<h1 >Инструкция по настройке интеграции Elma365 и Сервера Документов Р7<a href="#Инструкция_по_настройке_интеграции_Elma365_и_Сервера_Документов_Р7_Инструкция-по-настройке-интеграции-Elma365-и-Сервера-Документов-Р7" class="wiki-anchor">&para;</a></h1>
+<p>Установку делаем полностью по инструкции<br>
+<a href="https://support.r7-office.ru/document_server/install-document_server/document_server_linux/install_ds_astalinux_debian_ubuntu/" class="external">https://support.r7-office.ru/document_server/install-document_server/document_server_linux/install_ds_astalinux_debian_ubuntu/</a><br>
+Я устанавливал Для версии 2024.1.1-375 или выше</p>
+<p>Потом переводим на https, если letsencrypt то 1 часть инструкции, самоподписанные или покупные, 2я<br>
+<a href="https://helpcenter.onlyoffice.com/ru/installation/docs-community-https-linux.aspx" class="external">https://helpcenter.onlyoffice.com/ru/installation/docs-community-https-linux.aspx</a></p>
+<p>Настраиваем elma, Ниже отличия от инструкции<br>
+<a href="https://elma365.com/ru/help/business_solutions/r7-office.html" class="external">https://elma365.com/ru/help/business_solutions/r7-office.html</a></p>
+<p>Путь к файлу где брать токены на сервере документов, жирным выделен токен, обращаем внимание что есть отличия от инструкции, в файле никаких исправлений не делаем, только копируем токен.<br>
+/etc/r7-office/documentserver/local.json</p>
+<pre><code class="xml syntaxhl" data-language="xml"> "inbox": {
+          "header": "Authorization"
+         },
+        "outbox": {
+          "header": "Authorization"
+        }
+      },
+      "secret": {
+        "inbox": {
+          "string": "VLN2BkxE3XUQRoZ5WTDzKxFfe0OP6G9z"
+        },
+        "outbox": {
+          "string": "VLN2BkxE3XUQRoZ5WTDzKxFfe0OP6G9z"
+        },
+        "session": {
+          "string": "VLN2BkxE3XUQRoZ5WTDzKxFfe0OP6G9z"
+        }
+      }
+    }
+  },
+</code></pre>
+<p>Скриншот настроек в админке Elma во вложенном файле</p>
+<hr />
+<a name="КС_2024" />
+<a name="КС_2024_КС-2024"></a>
+<h1 >КС 2024<a href="#КС_2024_КС-2024" class="wiki-anchor">&para;</a></h1>
+<hr />
+<a name="Куда_попадают_логи_установки_Корпоративного_сервера_2024" />
+<p>Логи в процессе установки записываются в файл logfile.txt в директорию, из которой запущен инсталляционный скрипт.</p>
+<hr />
+<a name="Настройка_периода_синхронизации_с_AD" />
+<p>Синхронизация работает каждые 23 часа с момента старта сервиса processing</p>
+<p>Настройка находится в файле: /opt/r7-office/Processing/services.json</p>
+<pre><code>"name": "LDAP.UserImport",
+"commands": [
+{
+"name": "Send LDAP users to export",
+"type": "LdapImportUsersCommand",
+"period": "23:00:00"
+}
+],
+</code></pre>
+<p>Пример для выполнения синхронизации каждые 24 часа задайте значение:</p>
+<pre><code>"period": "1.00:00:00"
+</code></pre>
+<p>После изменения времени необходимо перезапустить сервис</p>
+<pre><code>supervisorctl restart cddisk:processing
+</code></pre>
+<hr />
+<a name="Настройка_почтового_сервера_в_корпоративном_сервере_2024" />
+<p>Существует 3 способа настройки почтового сервера:</p>
+<p>Корпоративный сервер 2024 в своем составе имеет почтовый сервер, который может быть установлен при первой инсталляции<br>
+Почтовый сервер можно установить на вынесенный сервер после чего произвести настройку интеграции<br>
+В качестве почтового сервера может служить сторонний сервер, например mail.ru или Yandex.ru<br>
+Настройка производится в разделе «подразделения»</p>
+<p><img src="http://127.0.0.1:10083/attachments/download/126/clipboard-202503271626-bklgt.png" alt="" loading="lazy"></p>
+<p>В первом пункте, когда почтовый сервер устанавливается одновременно с основным КС2024 в этом разделе уже внесены настройки по интеграции.</p>
+<p>Если же у вас второй пункт, Вам необходимо воспользоваться инструкцией по интеграции:</p>
+<pre><code>https://support.r7-office.ru/corporate-server2024/install-r7server/integracija-ks24-s-pochtovym-serverom/
+</code></pre>
+<p>Обратите внимание на порты, которые необходимо изменить, в версии КС2024 2024.1.1.1775 порты указаны не верно. Необходимо указать следующие значения:</p>
+<p>Pop – 995<br>
+Imap – 993<br>
+Smtp – 465<br>
+Ssh – 22, если на сервере используется стандартный порт<br>
+Если вы используете сторонний сервер, необходимо уточнить какие порты используются на нем и внести соответствующие значения.</p>
+<p>Обратите внимание, что в таком подключении необходимо убрать галочку «интеграция с почтовым сервером по ssh».</p>
+<p>При таком подключении будет не доступна возможность создавать почтовые ящики используя интерфейс КС2024.</p>
+<hr />
+<a name="Настройка_почты_для_ИБ" />
+<a name="Настройка_почты_для_ИБ_Настройка-почты-для-ИБ"></a>
+<h1 >Настройка почты для ИБ<a href="#Настройка_почты_для_ИБ_Настройка-почты-для-ИБ" class="wiki-anchor">&para;</a></h1>
+<p>Есть несколько вариантов, с помощью которых можно реализовать этот функционал:</p>
+<ol>
+<li>На Корпоративном сервере 2024 для сотрудника ИБ создается специальная учетная запись, которая позволяет зайти в веб модуль Р7-Почта для просмотра писем конкретного сотрудника.</li>
+<li>На почтовом сервере сделать донастройку, чтобы все входящие или исходящие письма дублировались в специальный почтовый ящик, который могут использовать сотрудники ИБ.</li>
+</ol>
+<hr />
+<a name="Не_корректно_работает_портал_Ошибка_-_токен_просрочен_Портал_выкидывает_на_страницу_авторизации" />
+<p>Ошибкой, из-за которой Корпоративный сервер 2024 может не корректно работать, часто является не верное указанное доменное имя. Это может быть не существующий домен, например .loc<br>
+Так же короткие имена могут являться причиной. Например имя не содержащее в своем названии домена первого порядка, например <a href="https://r7-cs-server-2024/" class="external">https://r7-cs-server-2024/</a><br>
+Мы рекомендуем использовать сертификаты безопасности SSL для перевода портала на работу по протоколу https. В случае если вы используете самоподписанные сертификаты, используйте для портала полную цепочку сертификатов, это цепочка содержит в себе корневой сертификат, промежуточный сертификат и сертификат на домен.</p>
+<p>Если вы уже настроили портал и вам требуется изменить имя, воспользуйтесь инструкцией в нашей базе знаний <a href="https://support.r7-office.ru/corporate-server2024/settings_cs-r7disk/obnovlenie-znachenij-url-protokola-sekreta-v-bd-korporativnogo-portala-2024/" class="external">https://support.r7-office.ru/corporate-server2024/settings_cs-r7disk/obnovlenie-znachenij-url-protokola-sekreta-v-bd-korporativnogo-portala-2024/</a></p>
+<p>Так же может потребоваться внести изменения в файл конфигурации Nginx:</p>
+<p>Файлы могут располагаться в каталоге /etc/nginx/conf.d/ или /etc/nginx/sites-enabled</p>
+<p>admin<br>
+calendar<br>
+cddisk<br>
+cdmail<br>
+default<br>
+Пример конфигурации <strong>admin</strong> , измените <strong>server_name</strong></p>
+<pre><code>server {
+        listen 80;
+        listen [::]:80;
+    listen 443 ssl http2;
+
+    if ($scheme != "https")
+    {
+        return 301 https://$host$request_uri;
+    }
+
+    root /var/www/r7-office/admin;
+    index index.html;
+
+    server_name admin.devr7.ru;
+    server_tokens off;
+
+    ssl_protocols TLSv1.2 TLSv1.3;
+    ssl_certificate /etc/nginx/ssl/devr7.ru.crt;
+    ssl_certificate_key /etc/nginx/ssl/devr7.ru.key;
+    ssl_ciphers HIGH:!aNULL:!MD5;
+
+    location /api {
+        proxy_pass http://localhost:38033/api;
+    }
+
+    location /web-apps {
+            proxy_pass http://0.0.0.0:8083/web-apps;
+        }
+
+        location /docserver {
+            rewrite /docserver/(.*) /$1  break;
+            proxy_pass http://0.0.0.0:8083;
+            proxy_redirect     off;
+            proxy_set_header   Host $host;
+        proxy_http_version 1.1;
+            proxy_set_header Upgrade $http_upgrade;
+            proxy_set_header Connection "upgrade";
+            proxy_set_header X-Real-IP $remote_addr;
+            proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+            proxy_set_header X-Forwarded-Host $server_name;
+            proxy_set_header X-Forwarded-Proto $the_scheme;
+            proxy_set_header Connection $proxy_connection;
+            proxy_ssl_verify off;
+        }
+        location /cache {
+            rewrite /docserver/cache/(.*) /$1  break;
+            proxy_pass http://0.0.0.0:8083;
+            proxy_redirect     off;
+            proxy_set_header   Host $host;
+        proxy_http_version 1.1;
+            proxy_set_header Upgrade $http_upgrade;
+            proxy_set_header Connection "upgrade";
+            proxy_set_header X-Real-IP $remote_addr;
+            proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+            proxy_set_header X-Forwarded-Host $server_name;
+            proxy_set_header X-Forwarded-Proto $the_scheme;
+            proxy_set_header Connection $proxy_connection;
+            proxy_ssl_verify off;
+        }
+
+        location / {
+                try_files $uri $uri/ /index.html;
+        }
+}
+</code></pre>
+<p>Аналогично измените server_name в остальных конфигурациях.</p>
+<p>Так же проверьте имена в файле /etc/hosts.</p>
+<hr />
+<a name="Не_приходят\не_уходят_письма_Ошибка_400_и_54001" />
+<p>В таком случае необходимо проверить настройки почтового сервера в панели администратора в соответствующем подразделении:<br>
+<img src="http://127.0.0.1:10083/attachments/download/124/clipboard-202503271620-znjvg.png" alt="" loading="lazy"></p>
+<p>Важно обратить внимание именно на тип соединения. Необходимо выбрать именно тот тип, который настроен на вашем почтовом сервере.</p>
+<p>Данную настройку провести для каждого сервера (POP3, IMAP, SMTP).</p>
+<hr />
+<a name="Несколько_почтовых_доменов" />
+<p>Скрипт create_domain.sh - создание домена</p>
+<p>Данный скрипт создается в момент установки почтового сервера и располагается в корневом каталоге / в папке /script</p>
+<p>Данный скрипт создает новый домен с указанным именем (извлекая его из переданного адреса домена). Полезно если использовать режим мультитенантности или обслуживать одним почтовым сервером несколько доменов.</p>
+<p>Необходимо запускать в виде:</p>
+<p>bash /script/create domain.sh domain<br>
+Например:</p>
+<p>bash /script/create_domain.sh domain.ru</p>
+<hr />
+<a name="Отказоустойчивый_кластер_Р7-Офис_2024" />
+<a name="Отказоустойчивый_кластер_Р7-Офис_2024_Отказоустойчивый-кластер-Р7-Офис-2024"></a>
+<h1 >Отказоустойчивый кластер Р7-Офис 2024<a href="#Отказоустойчивый_кластер_Р7-Офис_2024_Отказоустойчивый-кластер-Р7-Офис-2024" class="wiki-anchor">&para;</a></h1>
+<p>Комментарий<br>
+Отказоустойчивость обеспечивается наличием репликации для БД в middle архитектуре.<br>
+Также, для хранилища данных возможно использование планировщика для резервного копирования на другой диск.<br>
+Ниже ссылка на различные схемы установки Корпоративного сервера 2024:<br>
+<em>"Установка и обновление":<a href="https://support.r7-office.ru/category/corporate-server2024/install-r7server/" class="external">https://support.r7-office.ru/category/corporate-server2024/install-r7server/</a></em></p>
+<p>Инструкции по репликации БД при архитектуре single нет, но сделать это возможно ориентируясь на инструкцию по middle архитектуре.</p>
+<p>Для повышения отказоустойчивости разработана инструкция кластеризации отдельно документ сервера<br>
+<em>"Кластер DS Astra Linux (beta)":<a href="https://support.r7-office.ru/document_server/install-document_server/document_server_linux/klaster-ds-astra-linux/" class="external">https://support.r7-office.ru/document_server/install-document_server/document_server_linux/klaster-ds-astra-linux/</a></em><br>
+<em>"Кластер DS (DocumentServer) на RedOS 7.3 (beta)":<a href="https://support.r7-office.ru/document_server/install-document_server/document_server_linux/klaster-ds-documentserver-na-redos-7-3-beta/" class="external">https://support.r7-office.ru/document_server/install-document_server/document_server_linux/klaster-ds-documentserver-na-redos-7-3-beta/</a></em></p>
+<p>Инструкция по кластеризации поиска и диска находится в разработке. В дальнейшем так же опубликуем решение на support.</p>
+<p>Отказоустойчивость балансировщика</p>
+<p>Рекомендованный сайзинг на каждый узел проксирования с помощью nginx:</p>
+<p>CPU: Минимум: 6 ядер (x86_64 архитектура, желательно Intel Xeon или AMD EPYC). Рекомендовано: 12–16 ядер, при полной нагрузке.<br>
+RAM: Минимум: 8 Gb. Рекомендовано: 16-24 Gb для хранения большого количества сессий.<br>
+Disk:  256 GB крайне желательно ssd для кэширования контента и журналов.<br>
+Сетевое подключение: 10 Gbps</p>
+<hr />
+<a name="Передача_прав_от_заблокированного_(уволенного)_пользователя" />
+<p>На портале у пользователя «А» есть личные документы, пользователь «А» увольняется, не передав документы другому сотруднику.<br>
+На портале у пользователя «А» есть личные документы, пользователь «А» находится в отпуске, дозвониться до него не получается, документы необходимо срочно передать на редактирование.<br>
+На портале у пользователя «А» есть личные документы, пользователь «А» заблокирован, доступ к его документам отсутствует.<br>
+Если возникла одна, из вышеописанных, ситуаций, то вам поможет способ, описанный ниже, по передаче прав другому сотруднику:</p>
+<p>Для того, чтобы в каталоге "Общие" изменить владельца с "Удалённого" на нового, потребуется:</p>
+<p>Узнать Id пользователей, нового и удалённого. В БД выполнить запрос для каждого из них:</p>
+<pre><code>select "Id" from "Users" u where "Login" = 'user1@testad.ru'
+</code></pre>
+<p>Обновить владельца каталогов:</p>
+<pre><code>update "DocumentDirectories" dd set "OwnerId" = 26 where "OwnerId" = 25 and "Name" NOT in ('Хранилище', 'Последние документы', 'Избранное', 'Корзина', 'Совместный доступ', 'Доступно для меня', 'Мои документы');
+
+</code></pre>
+<p>Где,</p>
+<p>26 - id нового пользователь<br>
+25 - id удалённого<br>
+Обновить владельца файлов:</p>
+<pre><code>update "Documents" d set "OwnerId" = 26 where "OwnerId" = 25;
+</code></pre>
+<p>Где,</p>
+<p>26 - id нового пользователь<br>
+25 - id удалённого</p>
+<hr />
+<a name="Полное_удаление_r7-office-documentserver-ee" />
+<a name="Полное_удаление_r7-office-documentserver-ee_Полное-ручное-удаление-r7-office-documentserver-ee"></a>
+<h1 >Полное ручное удаление r7-office-documentserver-ee<a href="#Полное_удаление_r7-office-documentserver-ee_Полное-ручное-удаление-r7-office-documentserver-ee" class="wiki-anchor">&para;</a></h1>
+<pre><code>Удаляется r7-office-documentserver-ee (2024.1.1-375~stretch) … 
+dpkg: ошибка при обработке пакета r7-office-documentserver-ee (--remove): 
+ installed r7-office-documentserver-ee package post-removal script subprocess returned error exit
+ status 1 При обработке следующих пакетов произошли ошибки: r7-office-documentserver-ee
+</code></pre>
+<p>В случае возникновения ошибки удаления пакета требуется выполнить следующие шаги:</p>
+<ol>
+<li>Удалите файлы пакета:<br>
+sudo rm -rf /var/lib/dpkg/info/r7-office-documentserver-ee.*</li>
+<li>Удалите запись о пакете из базы данных dpkg:<br>
+sudo dpkg --remove --force-remove-reinstreq r7-office-documentserver-ee</li>
+<li>Убедитесь, что пакет удален:<br>
+sudo apt purge r7-office-documentserver</li>
+<li>Очистите кэш и удалите неиспользуемые зависимости:<br>
+sudo apt clean<br>
+sudo apt autoremove</li>
+</ol>
+<p>[Консультация "34581"]</p>
+<hr />
+<a name="Почта_отправляется_с_ошибкой" />
+<p>В некоторых случаях бывает почта не уходит, или уходит, но возвращается ошибка о доставке.<br>
+Обо всех ошибках, которые вам сообщает сервер, вы можете посмотреть в логах на самом почтовом сервере в каталоге /app/r7-office/MailServer/logs</p>
+<p><img src="http://127.0.0.1:10083/attachments/download/123/clipboard-202503271618-9pxxi.png" alt="" loading="lazy"></p>
+<p>Обращайте внимание на информацию в файлах <strong>mailbox</strong> и <strong>fail2ban.log</strong></p>
+<hr />
+<a name="Привязываются_ли_лицензии_для_Портала_к_определенному_серверу" />
+<p>Нет, в случае если требуется новая установка портала взамен установленного, лицензию можно перенести без запроса новой лицензии. Место хранение лицензии указано в инструкциях по установке.</p>
+<hr />
+<a name="Проброс_порта_через_хост" />
+<p>curl --location '<a href="https://fqdn/api/2.0/authentication" class="external">https://fqdn/api/2.0/authentication</a>' --header 'Content-Type: application/json' --data-raw '{ "userName": "", "password": "" }'</p>
+<p>в Полях <strong>UserName</strong> и <strong>Password</strong> надо вставить свои валидные данные</p>
+<p>ssh -L 38443:localhost:38443 <a href="mailto:UserName@xx.xx.xx.xx" class="email">UserName@xx.xx.xx.xx</a></p>
+<p>ssh -p 2222 -L 38443:localhost:443 <a href="mailto:UserName@xx.xx.xx.xx" class="email">UserName@xx.xx.xx.xx</a></p>
+<hr />
+<a name="Проверка_параметров_почты_при_проблемах_отправки_и_получения" />
+<a name="Проверка_параметров_почты_при_проблемах_отправки_и_получения_Проверка-параметров-почты-при-проблемах-отправки-и-получения"></a>
+<h1 >Проверка параметров почты при проблемах отправки и получения<a href="#Проверка_параметров_почты_при_проблемах_отправки_и_получения_Проверка-параметров-почты-при-проблемах-отправки-и-получения" class="wiki-anchor">&para;</a></h1>
+<p>Рекомендуем проверить следующие параметры:</p>
+<ol>
+<li>
+<p>Проверка статуса служб<br>
+Проверьте статус службы postfix (отвечает за исходящую почту по протоколу SMTP):<br>
+systemctl status postfix<br>
+Проверьте статус службы dovecot (служит для входящей почты по протоколам POP3 и IMAP, а также отвечает за авторизацию клиента):<br>
+systemctl status dovecot</p>
+</li>
+<li>
+<p>Логи postfix и dovecot<br>
+Логи postfix и dovecot записываются в файл:<br>
+/var/log/mail.log<br>
+Логи, связанные с авторизацией, а также расширенные логи dovecot находятся в директории:<br>
+/var/log/dovecot/</p>
+</li>
+<li>
+<p>Проверка каталога "/script"<br>
+Проверьте наличие каталога "/script" в корневой директории. В этой директории находятся скрипты, к которым обращается веб-клиент при создании почтовой учетной записи, удалении и т.п.</p>
+</li>
+<li>
+<p>Создание почтовой учётной записи с помощью скрипта<br>
+Попробуйте создать почтовую учётную запись с помощью скрипта. Пример:<br>
+bash /script/create_user.sh <a href="mailto:test@test.ru" class="email">test@test.ru</a> Qwerty1234<br>
+Если пользователь не создаётся, это может указывать на проблему с базой данных.<br>
+Инструкцию по использованию скриптов вы найдёте по ссылке: Инструкция по использованию скриптов для манипуляций.docx</p>
+</li>
+<li>
+<p>Диагностика работы почты<br>
+Для диагностики работы почты отправьте тестовое сообщение от сервисного пользователя root:</p>
+</li>
+<li>
+<p>Введите команду:<br>
+sendmail -v <a href="mailto:test@test.ru" class="email">test@test.ru</a></p>
+</li>
+<li>
+<p>Введите текст сообщения:<br>
+test_text</p>
+</li>
+<li>
+<p>Нажмите сочетание клавиш Ctrl+D.<br>
+Для проверки очереди используйте команду:<br>
+mailq<br>
+Если сообщение не ушло, это может указывать на проблему с записями в DNS-сервере.</p>
+</li>
+</ol>
+<hr />
+<a name="Работа_с_pdf_файлами_в_Р7_Офис" />
+<a name="Работа_с_pdf_файлами_в_Р7_Офис_Работа-с-pdf-файлами-в-Р7-Офис"></a>
+<h1 >Работа с pdf файлами в Р7 Офис<a href="#Работа_с_pdf_файлами_в_Р7_Офис_Работа-с-pdf-файлами-в-Р7-Офис" class="wiki-anchor">&para;</a></h1>
+<p>Как отредактировать PDF-файл в «Р7-Офис»?<br>
+Чтобы изменить PDF-документ, его сначала нужно перевести в редактируемый формат. Вот что нужно сделать:</p>
+<p>Конвертировать документ PDF в формат DOCX: в десктопной версии через функцию «Сохранить как», в онлайн-версии — через функцию «Скачать как».<br>
+Внести необходимые изменения.<br>
+Конвертировать отредактированный документ из DOCX обратно в PDF.<br>
+При необходимости можно конвертировать PDF в другой формат. Например, для чтения больших документов на мобильных устройствах удобнее форматы FB2 или EPUB.</p>
+<p>Как в «Р7-Офис» конвертировать файлы в формат PDF?<br>
+Во многих текстовых редакторах есть функция «Сохранить как». Она позволяет при сохранении конвертировать в PDF такие форматы, как DOCX и DOC. Но если нужно преобразовать иные форматы — TXT, HTML, ODT и прочие — приходится искать специальные программы или сервисы-конвертеры. При этом у каждого решения свои условия: работа только с определенными типами файлов, ограничения по объёму. В «Р7-Офис» можно конвертировать в PDF любой файл поддерживаемого формата. Вот как это сделать в десктопной версии:</p>
+<p>Открыть в редакторе файл, который нужно перевести в PDF.<br>
+Перейти во вкладку «Файл» и выбрать пункт «Сохранить как».<br>
+Когда откроется окно проводника, в строке «Тип файла» кликнуть на указатель для раскрытия меню, затем выбрать формат PDF.<br>
+Сохранить файл в выбранном формате.<br>
+Теперь файл сохранён в PDF-формате. Можно его открыть, переслать, сохранить.<br>
+При использовании облачной версии «Р7-Офис» процесс конвертации еще более упрощается: нужно открыть конвертируемый файл, перейти во вкладку «Файл», выбрать «Скачать как», кликнуть на нужный формат.</p>
+<hr />
+<a name="Рассылка" />
+<p>Чтобы иметь возможность отправлять уведомления и пользоваться рассылкой, необходимо ее настроить.</p>
+<p>Перейдите в «Админке» в настройки подразделения, выберите «Настройка рассылки», выберите пользователя, от имени которого будет работать рассылка на Корпоративном портале 2024.</p>
+<p><img src="http://127.0.0.1:10083/attachments/download/125/clipboard-202503271623-gltxn.png" alt="" loading="lazy"></p>
+<hr />
+<a name="Расчет_сайзинга_Р7_по_рекомендациям_вендора" />
+<a name="Расчет_сайзинга_Р7_по_рекомендациям_вендора_Расчет-сайзинга-Р7-по-рекомендациям-вендора"></a>
+<h1 >Расчет сайзинга Р7 по рекомендациям вендора<a href="#Расчет_сайзинга_Р7_по_рекомендациям_вендора_Расчет-сайзинга-Р7-по-рекомендациям-вендора" class="wiki-anchor">&para;</a></h1>
+<p>Расчет сайзинга производится на базе проведенных нагрузочных испытаний и сильно зависит от предполагаемого использования программного продукта (на какие модули в основном ложится нагрузка) и от выбора ОС.<br>
+Пример характеристик оборудования для Корпоративного сервера 2024:</p>
+<p>Расчет пользователей - 4000 учетных записей на портале, 2000 пользователей - активное использование работы с документами.</p>
+<ol start="0">
+<li>
+<p>Диски под ОС для всех:<br>
+от 50Гб</p>
+</li>
+<li>
+<p>Сервер Р7-Диск<br>
+CPU: от 12<br>
+RAM: от 54<br>
+Диск с данными (или NFS): от 8Тб</p>
+</li>
+<li>
+<p>Сервер Документов<br>
+CPU: от 20<br>
+RAM: от 80<br>
+Диск с данными (или NFS): от 800 Гб</p>
+</li>
+<li>
+<p>Сервер СУБД (PostgreSQL)<br>
+CPU: от 27<br>
+RAM: от 54<br>
+Диск с данными (рекомендуется подключать отдельно): от 320 Гб</p>
+</li>
+<li>
+<p>Сервер поиска<br>
+CPU: от 27<br>
+RAM: от 80<br>
+Диск с данными (или NFS): от 500 Гб</p>
+</li>
+<li>
+<p>NFS сервер (опционально)<br>
+CPU: от 7<br>
+RAM: от 27<br>
+Диск с данными (рекомендуем под каждую роль отдельный диск): от 9600 Тб</p>
+</li>
+</ol>
+<p>Обратите внимание, что представленные технические характеристики серверов являются примерными.<br>
+Фактическое потребление ресурсов может значительно отличаться от указанных значений и напрямую зависит от сценария использования программного продукта.<br>
+Например, нагрузка на сервер будет существенно варьироваться в зависимости от того, какие модули приложения используются наиболее активно.</p>
+<hr />
+<a name="Сетевые_настройки_почтового_сервера" />
+<a name="Сетевые_настройки_почтового_сервера_Сетевые-настройки-почтового-сервера"></a>
+<h1 >Сетевые настройки почтового сервера<a href="#Сетевые_настройки_почтового_сервера_Сетевые-настройки-почтового-сервера" class="wiki-anchor">&para;</a></h1>
+<p>Необходимо включить файрвол в системе, и прописать правила sudo ufw allow 465<br>
+sudo ufw allow 443<br>
+sudo ufw allow 80<br>
+После этого перезагрузить сервер и проверить настройки smtp нажав на кнопку "тестовое письмо".</p>
+<hr />
+<a name="Смена_URL_Сервера_Документов" />
+<p>Для смены URL необходимо в файле /etc/nginx/conf.d/ds.conf изменить значение NameServer на верное</p>
+<p>И в бд надо поменять -</p>
+<pre><code>INSERT INTO public."MessageSettings"("Key",  "Value", "Lang") VALUES ('documentServerUrl' ,'ds1.example.ru','')
+ON CONFLICT ("Key") DO UPDATE SET "Value"= EXCLUDED."Value","Lang"= EXCLUDED."Lang";
+</code></pre>
+<hr />
+<a name="Ссылки_на_документацию_по_распределенной_архитектуре_Р7_Офис_2024" />
+<a name="Ссылки_на_документацию_по_распределенной_архитектуре_Р7_Офис_2024_Ссылки-на-документацию-по-распределенной-архитектуре-Р7-Офис-2024"></a>
+<h1 >Ссылки на документацию по распределенной архитектуре Р7 Офис 2024<a href="#Ссылки_на_документацию_по_распределенной_архитектуре_Р7_Офис_2024_Ссылки-на-документацию-по-распределенной-архитектуре-Р7-Офис-2024" class="wiki-anchor">&para;</a></h1>
+<p>Основная инструкция:<br>
+<a href="https://support.r7-office.ru/corporate-server2024/install-r7server/ustanovka-dlja-vysokonagruzhennyh-sistem-r7-disk-arhitektura-middle/" class="external">https://support.r7-office.ru/corporate-server2024/install-r7server/ustanovka-dlja-vysokonagruzhennyh-sistem-r7-disk-arhitektura-middle/</a></p>
+<p>Вынос модуля Поиск:<br>
+<a href="https://support.r7-office.ru/corporate-server2024/settings_cs-r7disk/vynos-servisa-search-red-os-beta/" class="external">https://support.r7-office.ru/corporate-server2024/settings_cs-r7disk/vynos-servisa-search-red-os-beta/</a></p>
+<p>Вынос сервиса API:<br>
+<a href="https://support.r7-office.ru/corporate-server2024/settings_cs-r7disk/vynos-servisa-api-astra-linux-1-7-beta/" class="external">https://support.r7-office.ru/corporate-server2024/settings_cs-r7disk/vynos-servisa-api-astra-linux-1-7-beta/</a></p>
+<p>Вынос сервиса Processing:<br>
+<a href="https://support.r7-office.ru/corporate-server2024/settings_cs-r7disk/vynos-servisa-processing-astra-linux-1-7-beta/#451-%D0%A5%D0%BE%D1%81%D1%82-%D1%81-Registry" class="external">https://support.r7-office.ru/corporate-server2024/settings_cs-r7disk/vynos-servisa-processing-astra-linux-1-7-beta/#451-%D0%A5%D0%BE%D1%81%D1%82-%D1%81-Registry</a></p>
+<p>Кластер сервера документов:<br>
+<a href="https://support.r7-office.ru/document_server/install-document_server/document_server_linux/klaster-ds-astra-linux/#4-%D0%A0%D0%BE%D0%BB%D1%8C-DS" class="external">https://support.r7-office.ru/document_server/install-document_server/document_server_linux/klaster-ds-astra-linux/#4-%D0%A0%D0%BE%D0%BB%D1%8C-DS</a></p>
+<p>Дополнительно инструкции по интеграции:</p>
+<p>Интеграция с NextCloud:<br>
+<a href="https://support.r7-office.ru/integration/integration_ds_nextcloud/" class="external">https://support.r7-office.ru/integration/integration_ds_nextcloud/</a></p>
+<p>Настройка синхронизации по LDAP:<br>
+<a href="https://support.r7-office.ru/corporate-server2024/settings_cs-r7disk/nastrojka-sinhronizacii-po-ldap/" class="external">https://support.r7-office.ru/corporate-server2024/settings_cs-r7disk/nastrojka-sinhronizacii-po-ldap/</a></p>
+<p>Интеграция с S3 Хранилище:<br>
+<a href="https://support.r7-office.ru/corporate-server2024/settings_cs-r7disk/integracija-s3-hranilishha-s-r7-disk-na-primere-selectel/" class="external">https://support.r7-office.ru/corporate-server2024/settings_cs-r7disk/integracija-s3-hranilishha-s-r7-disk-na-primere-selectel/</a></p>
+<hr />
+<a name="Статистика_портала" />
+<a name="Статистика_портала_Корпоративный-сервер-2024-предлагает-статистику-по-следующим-пунктам"></a>
+<h2 >Корпоративный сервер 2024 предлагает статистику по следующим пунктам:<a href="#Статистика_портала_Корпоративный-сервер-2024-предлагает-статистику-по-следующим-пунктам" class="wiki-anchor">&para;</a></h2>
+<p><strong>Активность</strong><br>
+Статистика посещения портала по датам, а также по подразделениям. Полученную статистику можно экспортировать в файл формата csv. Отсортировать статистику по возрастанию или по убыванию можно, нажав на заголовок столбца, по которому нужно отсортировать данные.</p>
+<p><strong>Дисковое пространство</strong><br>
+Занимаемое место каждым пользователем в разрезе портала/подразделения. Полученную статистику можно экспортировать в файл формата csv. Отсортировать статистику по возрастанию или по убыванию можно, нажав на заголовок столбца, по которому нужно отсортировать данные.</p>
+<p><strong>Журнал аудита</strong><br>
+Статистика авторизации пользователей на портале по датам. Можно отфильтровать статистику по типам авторизации (успешная авторизация, неудачная попытка авторизоваться и выход из системы).</p>
+<p>Попасть в статистику можно через панель администратора – статистика<br>
+<img src="http://127.0.0.1:10083/attachments/download/121/clipboard-202503271607-7bu1x.png" alt="" loading="lazy"><br>
+<img src="http://127.0.0.1:10083/attachments/download/122/clipboard-202503271607-g6mor.png" alt="" loading="lazy"></p>
+<hr />
+<a name="Установка_debian-archive-keyring_на_Astra_Linux_175" />
+<a name="Установка_debian-archive-keyring_на_Astra_Linux_175_Установка-debian-archive-keyring-на-Astra-Linux-175"></a>
+<h1 >Установка debian-archive-keyring на Astra Linux 1.7.5<a href="#Установка_debian-archive-keyring_на_Astra_Linux_175_Установка-debian-archive-keyring-на-Astra-Linux-175" class="wiki-anchor">&para;</a></h1>
+<p>Поддерево интернет-репозиториев stable содержит ссылки на репозитории последнего опубликованного оперативного или срочного обновления. Отдельных ссылок на срочные обновления поддерево stable не содержит. Такие ссылки доступны только в поддереве frozen. Репозитории данной ветви неизменяемы и указываются для фиксации версии обновления независимо от появления новых версий обновлений ОС.</p>
+<p>Поддерево интернет-репозиториев stable содержит ссылки на репозитории последнего опубликованного оперативного или срочного обновления. На данный момент последнее опубликованное оперативное обновление БЮЛЛЕТЕНЬ № 2024-1127SE17MD (срочное оперативное обновление 1.7.6.UU.2)</p>
+<p>Использование репозиториев ветки stable на неактуальных оперативных обновлениям может вызвать конфликт зависимостей и версий пакетов и привести к ошибкам в системе.</p>
+<p>Дополнительно рекомендуем ознакомиться со статьями Справочного центра : Интернет-репозитории Astra Linux Special Edition x.7:<br>
+<a href="https://wiki.astralinux.ru/pages/viewpage.action?pageId=158598882" class="external">https://wiki.astralinux.ru/pages/viewpage.action?pageId=158598882</a> При использовании расширенного репозитория (<a href="https://wiki.astralinux.ru/pages/viewpage.action?pageId=158598882#id-%D0%98%D0%BD%D1%82%D0%B5%D1%80%D0%BD%D0%B5%D1%82%D1%80%D0%B5%D0%BF%D0%BE%D0%B7%D0%B8%D1%82%D0%BE%D1%80%D0%B8%D0%B8AstraLinuxSpecialEditionx.7-%D0%9F%D1%80%D0%B8%D0%B8%D1%81%D0%BF%D0%BE%D0%BB%D1%8C%D0%B7%D0%BE%D0%B2%D0%B0%D0%BD%D0%B8%D0%B8%D1%80%D0%B0%D1%81%D1%88%D0%B8%D1%80%D0%B5%D0%BD%D0%BD%D0%BE%D0%B3%D0%BE%D1%80%D0%B5%D0%BF%D0%BE%D0%B7%D0%B8%D1%82%D0%BE%D1%80%D0%B8%D1%8F" class="external">https://wiki.astralinux.ru/pages/viewpage.action?pageId=158598882#id-%D0%98%D0%BD%D1%82%D0%B5%D1%80%D0%BD%D0%B5%D1%82%D1%80%D0%B5%D0%BF%D0%BE%D0%B7%D0%B8%D1%82%D0%BE%D1%80%D0%B8%D0%B8AstraLinuxSpecialEditionx.7-%D0%9F%D1%80%D0%B8%D0%B8%D1%81%D0%BF%D0%BE%D0%BB%D1%8C%D0%B7%D0%BE%D0%B2%D0%B0%D0%BD%D0%B8%D0%B8%D1%80%D0%B0%D1%81%D1%88%D0%B8%D1%80%D0%B5%D0%BD%D0%BD%D0%BE%D0%B3%D0%BE%D1%80%D0%B5%D0%BF%D0%BE%D0%B7%D0%B8%D1%82%D0%BE%D1%80%D0%B8%D1%8F</a>)</p>
+<p>При использовании ветки frozen, следует привести конфигурационный файл /etc/apt/sources.list к следующему виду (остальные строки закомментировать или удалить):</p>
+<pre><code>deb http://dl.astralinux.ru/astra/frozen/1.7_x86-64/1.7.5/repository-main/ 1.7_x86-64 main contrib non-free 
+deb http://dl.astralinux.ru/astra/frozen/1.7_x86-64/1.7.5/repository-update/ 1.7_x86-64 main contrib non-free 
+deb http://dl.astralinux.ru/astra/frozen/1.7_x86-64/1.7.5/repository-base/ 1.7_x86-64 main contrib non-free 
+deb http://dl.astralinux.ru/astra/frozen/1.7_x86-64/1.7.5/repository-extended/ 1.7_x86-64 main contrib non-free
+</code></pre>
+<p>Далее выполнить обновление кэша репозитория:</p>
+<pre><code>sudo apt update
+</code></pre>
+<p>Установить пакет debian-archive-keyring:</p>
+<pre><code>sudo apt install debian-archive-keyring
+</code></pre>
+<p>Дополнительно сообщаем, что Пакет debian-archive-keyring был исключен из состава расширенного репозитория Astra Lnux Special Edition 1.7.6. Подробнее ознакомиться с изменениями в расширенном репозитории Вы можете в статье Справочного центра: Пакеты, исключенные из репозиториев Astra Linux.</p>
+<p>Также рекомендуем ознакомиться со статьей Справочного центра по подключению репозиториев без установки пакета debian-archive-keyring: Без установки пакета debian-archive-keyring.</p>
+<hr />
+<a name="Установка_Р7_Офис_2024_в_Docker" />
+<a name="Установка_Р7_Офис_2024_в_Docker_Установка-Р7-Офис-2024-в-Docker"></a>
+<h1 >Установка Р7 Офис 2024 в Docker<a href="#Установка_Р7_Офис_2024_в_Docker_Установка-Р7-Офис-2024-в-Docker" class="wiki-anchor">&para;</a></h1>
+<p>Инструкция по установке корпоративного сервера 2024 для docker доступна в нашей базе знаний по ссылке:<br>
+<a href="https://support.r7-office.ru/corporate-server2024/install-r7server/instrukcija-po-zapusku-docker-kontejnerov-korporativnyj-server-2024/" class="external">https://support.r7-office.ru/corporate-server2024/install-r7server/instrukcija-po-zapusku-docker-kontejnerov-korporativnyj-server-2024/</a><br>
+Дистрибутив доступен по ссылке:<br>
+<a href="https://r7-office.ru/downloadserver" class="external">https://r7-office.ru/downloadserver</a></p>
+
+</body>
+</html>

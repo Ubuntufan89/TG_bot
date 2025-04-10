@@ -16,6 +16,7 @@ import sys
 import asyncio
 import re
 import mimetypes
+from bs4 import BeautifulSoup
 
 # Настройка логирования
 logging.basicConfig(
@@ -42,6 +43,19 @@ if not all([TELEGRAM_TOKEN, SERVICE_API_TOKEN, SERVICE_API_URL]):
 
 # Состояния диалога
 SUBJECT, DESCRIPTION, COMPANY_NAME, INN, FILES, TICKET_NUMBER, FIRST_NAME, LAST_NAME = range(8)
+
+def load_inn_list():
+    """Загрузка списка ИНН из файла"""
+    try:
+        with open('inn_list.json', 'r') as file:
+            data = json.load(file)
+            return data.get('inns', [])
+    except Exception as e:
+        logger.error(f"Ошибка при загрузке списка ИНН: {str(e)}")
+        return []
+
+# Загрузка списка ИНН при старте
+INN_LIST = load_inn_list()
 
 class RedmineFileUploader:
     def __init__(self, session, api_url, api_token):
@@ -381,7 +395,7 @@ async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
     keyboard = [
         [InlineKeyboardButton("Создать тикет", callback_data='create_ticket')],
         [InlineKeyboardButton("Проверить статус", callback_data='check_status')],
-        [InlineKeyboardButton("База знаний", url='https://service-lad.ru/projects/service-desk/wiki/index')]
+        [InlineKeyboardButton("Задать вопрос", callback_data='ask_question')]
     ]
     reply_markup = InlineKeyboardMarkup(keyboard)
     await update.message.reply_text(
@@ -394,6 +408,9 @@ async def create_ticket_start(update: Update, context: ContextTypes.DEFAULT_TYPE
     """Начало создания тикета"""
     query = update.callback_query
     await query.answer()
+    
+    # Очищаем данные о файлах из предыдущего тикета
+    context.user_data['files'] = []
     
     await query.message.reply_text(
         'Уважаемый пользователь, пожалуйста, укажите тему вашего обращения:'
@@ -434,6 +451,13 @@ async def get_inn(update: Update, context: ContextTypes.DEFAULT_TYPE):
             'Уважаемый пользователь, пожалуйста, введите корректный ИНН (10 цифр):'
         )
         return INN
+    
+    # Проверяем, что ИНН находится в списке
+    if inn not in INN_LIST:
+        await update.message.reply_text(
+            'Пожалуйста, свяжитесь с Вашим менеджером!'
+        )
+        return ConversationHandler.END
     
     context.user_data['inn'] = inn
     await update.message.reply_text(
@@ -809,6 +833,134 @@ async def check_status_start(update: Update, context: ContextTypes.DEFAULT_TYPE)
     )
     return TICKET_NUMBER
 
+async def handle_user_question(update: Update, context: ContextTypes.DEFAULT_TYPE):
+    """Обработка вопросов пользователя через HTML-файл базы знаний"""
+    query = update.callback_query
+    await query.answer()  # Отвечаем на запрос, чтобы Telegram знал, что он обработан
+
+    # Спрашиваем пользователя ввести вопрос
+    await query.message.reply_text(
+        'Пожалуйста, введите ваш вопрос:'
+    )
+
+    # Ожидаем текстового сообщения от пользователя
+    return 'WAITING_QUESTION'
+
+async def process_user_question(update: Update, context: ContextTypes.DEFAULT_TYPE):
+    """Обработка введенного вопроса пользователя"""
+    user_question = update.message.text.strip().lower()
+    logger.info(f"Получен вопрос от пользователя: {user_question}")
+    
+    try:
+        # Открываем и читаем HTML-файл базы знаний
+        logger.info("Пытаемся открыть файл wiki.html")
+        with open('wiki.html', 'r', encoding='utf-8') as file:
+            html_content = file.read()
+        logger.info("Файл wiki.html успешно прочитан")
+        
+        # Парсим HTML-страницу
+        logger.info("Начинаем парсинг HTML")
+        soup = BeautifulSoup(html_content, 'html.parser')
+        logger.info("HTML успешно распарсен")
+        
+        # Ищем все заголовки и их содержимое
+        best_match = None
+        best_score = 0
+        best_title = None
+        
+        # Ищем все ссылки в оглавлении
+        logger.info("Начинаем поиск по базе знаний")
+        links = soup.find_all('a', href=True)
+        logger.info(f"Найдено {len(links)} ссылок в оглавлении")
+        
+        for link in links:
+            title = link.text.strip()
+            if not title or title == '¶':  # Пропускаем пустые заголовки и параграфы
+                continue
+                
+            # Получаем имя раздела из href
+            section_name = link['href'].replace('#', '')
+            logger.info(f"Обрабатываем раздел: {title} (name: {section_name})")
+            
+            # Ищем раздел по атрибуту name
+            section = soup.find('a', attrs={'name': section_name})
+            if not section:
+                logger.info(f"Раздел {section_name} не найден")
+                continue
+                
+            # Получаем следующий заголовок
+            header = section.find_next(['h1', 'h2', 'h3', 'h4'])
+            if not header:
+                continue
+                
+            # Получаем содержимое до следующего заголовка или конца документа
+            content = []
+            next_elem = header.find_next_sibling()
+            while next_elem and next_elem.name not in ['h1', 'h2', 'h3', 'h4']:
+                if next_elem.name == 'p':
+                    content.append(next_elem.get_text(strip=True))
+                next_elem = next_elem.find_next_sibling()
+            
+            content_text = ' '.join(content)
+            
+            # Подсчитываем релевантность
+            score = 0
+            question_words = user_question.split()
+            
+            # Проверяем совпадение слов в заголовке и содержимом
+            for word in question_words:
+                if len(word) < 3:  # Пропускаем короткие слова
+                    continue
+                if word in title.lower():
+                    score += 3  # Слова в заголовке имеют больший вес
+                if word in content_text.lower():
+                    score += 1
+            
+            logger.info(f"Раздел '{title}' имеет релевантность: {score}")
+            
+            # Если нашли более релевантный ответ
+            if score > best_score:
+                best_score = score
+                best_match = content_text
+                best_title = title
+                logger.info(f"Найден более релевантный ответ: {title} (score: {score})")
+
+        if best_match and best_score > 2:  # Минимальный порог релевантности
+            logger.info(f"Отправляем ответ пользователю. Заголовок: {best_title}, Релевантность: {best_score}")
+            response = f"🔍 Нашел информацию по вашему вопросу:\n\n"
+            response += f"📌 {best_title}\n\n"
+            response += f"{best_match[:1000]}..."  # Ограничиваем длину ответа
+            
+            # Если ответ слишком длинный, предлагаем создать тикет
+            if len(best_match) > 1000:
+                response += "\n\nОтвет слишком длинный. Рекомендую создать тикет для получения полной информации."
+            
+            await update.message.reply_text(response)
+        else:
+            logger.info("Подходящий ответ не найден")
+            await update.message.reply_text(
+                "❓ Извините, я не нашел точного ответа на ваш вопрос в базе знаний.\n\n"
+                "Вы можете:\n"
+                "1️⃣ Переформулировать вопрос\n"
+                "2️⃣ Создать тикет в поддержку, нажав /start"
+            )
+        
+        return ConversationHandler.END
+        
+    except FileNotFoundError:
+        logger.error("Файл базы знаний не найден")
+        await update.message.reply_text(
+            "⚠️ Извините, база знаний временно недоступна. Пожалуйста, создайте тикет в поддержку."
+        )
+        return ConversationHandler.END
+    except Exception as e:
+        logger.error(f"Ошибка при обработке вопроса: {str(e)}")
+        logger.exception("Полный стек ошибки:")
+        await update.message.reply_text(
+            "⚠️ Извините, произошла ошибка при поиске ответа. Пожалуйста, попробуйте позже."
+        )
+        return ConversationHandler.END
+
 def main():
     """Основная функция"""
     try:
@@ -848,10 +1000,21 @@ def main():
             per_message=False
         )
 
-        # Добавляем обработчики
+        # Создаем обработчик диалога вопросов
+        question_handler = ConversationHandler(
+            entry_points=[CallbackQueryHandler(handle_user_question, pattern='^ask_question$')],
+            states={
+                'WAITING_QUESTION': [MessageHandler(filters.TEXT & ~filters.COMMAND, process_user_question)]
+            },
+            fallbacks=[],
+            per_message=False
+        )
+
+        # Добавляем все обработчики
         application.add_handler(CommandHandler("start", start))
         application.add_handler(create_ticket_handler)
         application.add_handler(check_status_handler)
+        application.add_handler(question_handler)  # Добавляем обработчик вопросов
 
         # Добавляем обработчик ошибок
         application.add_error_handler(error_handler)
